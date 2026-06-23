@@ -4,3 +4,6 @@ GET {{Api_HostAddress}}/campanias
 Accept: application/json
 
 ###
+
+GET {{Api_HostAddress}}/campanias/3
+Accept: application/json

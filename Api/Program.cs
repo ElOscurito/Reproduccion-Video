@@ -2,15 +2,16 @@ using Application.Campania.Queries;
 using Infrastructure;
 using Infrastructure.Data;
 using Infrastructure.Data.Repository;
+using Microsoft.AspNetCore.Mvc;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
-
-builder.Services.AddScoped<ICampaniaGetAll, CampaniaGetAll>();
 builder.Services.AddInfrastructure();
+builder.Services.AddScoped<ICampaniaGetAll, CampaniaGetAll>();
+builder.Services.AddScoped<ICampaniaGetById, CampaniaGetById>();
 
 var app = builder.Build();
 
@@ -32,6 +33,19 @@ if (app.Environment.IsDevelopment())
         await dbContext.SaveChangesAsync();
     }
 }
+
+app.MapGet(
+    "/campanias/{id}",
+    async (int id, ICampaniaGetById campaniaGetById) =>
+    {
+        var campania = await campaniaGetById.ExecuteAsync(id);
+        if (campania == null)
+        {
+            return Results.NotFound();
+        }
+        return Results.Ok(campania);
+    }
+);
 
 app.MapGet(
         "/campanias",
