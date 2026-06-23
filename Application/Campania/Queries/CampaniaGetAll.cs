@@ -1,4 +1,5 @@
 using Domain;
+
 namespace Application.Campania.Queries;
 
 public interface ICampaniaGetAll
@@ -18,13 +19,10 @@ public class CampaniaGetAll : ICampaniaGetAll
     public async Task<List<CampaniaGetAllDto>> ExecuteAsync()
     {
         var campanias = await _campaniaRepository.GetAllCampaniasAsync();
-        return campanias.Select(c => new CampaniaGetAllDto(c.Id, c.Nombre, c.FechaInicio, c.FechaFin)).ToList();
+        return campanias
+            .Select(c => new CampaniaGetAllDto(c.Id, c.Nombre, c.FechaInicio, c.FechaFin))
+            .ToList();
     }
 }
 
-public record CampaniaGetAllDto(
-    int Id,
-    string Nombre,
-    DateTime FechaInicio,
-    DateTime FechaFin
-);
+public record CampaniaGetAllDto(int Id, string Nombre, DateTime FechaInicio, DateTime FechaFin);

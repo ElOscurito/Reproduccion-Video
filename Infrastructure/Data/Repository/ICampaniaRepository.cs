@@ -1,41 +1,45 @@
 using Domain;
+using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Data.Repository;
 
 public class CampaniaRepository : ICampaniaRepository
 {
-    public Task AddAsync(Campania campania)
+    private readonly ApplicationContext _context;
+
+    public CampaniaRepository(ApplicationContext context)
     {
-        throw new NotImplementedException();
+        _context = context;
+    }
+    public async Task AddCampaniaAsync(Campania campania)
+    {
+        await _context.Campanias.AddAsync(campania);
+        await _context.SaveChangesAsync();
     }
 
-    public Task AddCampaniaAsync(Campania campania)
+    public async Task DeleteCampaniaAsync(int id)
     {
-        throw new NotImplementedException();
-    }
-
-    public Task DeleteCampaniaAsync(int id)
-    {
-        throw new NotImplementedException();
+        var campania = await _context.Campanias.FindAsync(id);
+        if (campania != null)
+        {
+            _context.Campanias.Remove(campania);
+            await _context.SaveChangesAsync();
+        }
     }
 
     public async Task<List<Campania>> GetAllCampaniasAsync()
     {
-        return await Task.FromResult(new List<Campania>
-        {
-            new() { Id = 1, Nombre = "Campaña 1", FechaInicio = DateTime.Now, FechaFin = DateTime.Now.AddDays(10) },
-            new() { Id = 2, Nombre = "Campaña 2", FechaInicio = DateTime.Now.AddDays(1), FechaFin = DateTime.Now.AddDays(11) },
-            new() { Id = 3, Nombre = "Campaña 3", FechaInicio = DateTime.Now.AddDays(2), FechaFin = DateTime.Now.AddDays(12) }
-        });
+        return await _context.Campanias.ToListAsync();
     }
 
-    public Task<Campania?> GetCampaniaByIdAsync(int id)
+    public async Task<Campania?> GetCampaniaByIdAsync(int id)
     {
-        throw new NotImplementedException();
+        return await _context.Campanias.FindAsync(id);
     }
 
-    public Task UpdateCampaniaAsync(Campania campania)
+    public async Task UpdateCampaniaAsync(Campania campania)
     {
-        throw new NotImplementedException();
+        _context.Campanias.Update(campania);
+        await _context.SaveChangesAsync();
     }
 }
