@@ -1,12 +1,17 @@
-﻿namespace Domain;
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace Domain;
 
 public class Campania
 {
     public int Id { get; set; }
-    public string Nombre { get; set; } = string.Empty;
+    public Nombre Nombre { get; set; } = new Nombre(string.Empty);
     public DateTime FechaInicio { get; set; }
     public DateTime FechaFin { get; set; }
 }
+
+[NotMapped]
+public record Nombre(string Valor);
 
 public interface ICampaniaRepository
 {

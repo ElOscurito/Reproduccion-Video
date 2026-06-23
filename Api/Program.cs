@@ -1,4 +1,5 @@
 using Application.Campania.Queries;
+using Domain;
 using Infrastructure;
 using Infrastructure.Data;
 using Infrastructure.Data.Repository;
@@ -26,9 +27,9 @@ if (app.Environment.IsDevelopment())
     if (!dbContext.Campanias.Any())
     {
         dbContext.Campanias.AddRange(
-            new Domain.Campania { Nombre = "Campaña 1" },
-            new Domain.Campania { Nombre = "Campaña 2" },
-            new Domain.Campania { Nombre = "Campaña 3" }
+            new Campania { Nombre = new Nombre("Campaña 1") },
+            new Campania { Nombre = new Nombre("Campaña 2") },
+            new Campania { Nombre = new Nombre("Campaña 3") }
         );
         await dbContext.SaveChangesAsync();
     }

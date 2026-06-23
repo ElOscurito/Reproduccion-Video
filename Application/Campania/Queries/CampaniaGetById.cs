@@ -24,7 +24,7 @@ public class CampaniaGetById : ICampaniaGetById
         {
             return null;
         }
-        return new CampaniaGetByIdDto(campania.Id, campania.Nombre, campania.FechaInicio, campania.FechaFin);
+        return new CampaniaGetByIdDto(campania.Id, campania.Nombre.Valor, campania.FechaInicio, campania.FechaFin);
     }
 }
 

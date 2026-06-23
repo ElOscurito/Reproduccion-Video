@@ -20,7 +20,7 @@ public class CampaniaGetAll : ICampaniaGetAll
     {
         var campanias = await _campaniaRepository.GetAllCampaniasAsync();
         return campanias
-            .Select(c => new CampaniaGetAllDto(c.Id, c.Nombre, c.FechaInicio, c.FechaFin))
+            .Select(c => new CampaniaGetAllDto(c.Id, c.Nombre.Valor, c.FechaInicio, c.FechaFin))
             .ToList();
     }
 }
