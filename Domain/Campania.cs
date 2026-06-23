@@ -7,3 +7,12 @@ public class Campania
     public DateTime FechaInicio { get; set; }
     public DateTime FechaFin { get; set; }
 }
+
+public interface ICampaniaRepository
+{
+    Task<Campania?> GetCampaniaByIdAsync(int id);
+    Task<List<Campania>> GetAllCampaniasAsync();
+    Task AddCampaniaAsync(Campania campania);
+    Task UpdateCampaniaAsync(Campania campania);
+    Task DeleteCampaniaAsync(int id);
+}
