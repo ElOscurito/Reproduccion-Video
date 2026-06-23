@@ -1,6 +1,8 @@
 <Solution>
   <Project Path="Api/Api.csproj" />
   <Project Path="Application/Application.csproj" />
+  <Project Path="ASW.AppHost/ASW.AppHost.csproj" />
+  <Project Path="ASW.ServiceDefaults/ASW.ServiceDefaults.csproj" />
   <Project Path="Domain/Domain.csproj" />
   <Project Path="Infrastructure/Infrastructure.csproj" />
 </Solution>
